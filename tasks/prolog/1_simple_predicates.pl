@@ -24,25 +24,31 @@ father(b,e).
 father(c,f).
 
 brother(X,Y) :- father(Z,X),father(Z,Y),X\=Y.
-cousin(X,Y) :- father(Z,X),father(W,Y),brother(Z,W),X\=Y.
-grandson(X,Y) :- father(Y,Z),father(Z,X).
-descendent(X,Y) :- father(Y,X).
-descendent(X,Y) :- father(Y,Z),descendent(X,Z).
 
 /*
 ?- findall([X,Y],brother(X,Y),M).
 M = [[b, c], [c, b], [d, e], [e, d]].
 */
 
+cousin(X,Y) :- father(Z,X),father(W,Y),brother(Z,W),X\=Y.
+
 /*
 ?- findall([X,Y],cousin(X,Y),M).
 M = [[d, f], [e, f], [f, d], [f, e]]. 
 */
 
+
+grandson(X,Y) :- father(Y,Z),father(Z,X).
+
+
 /*
 ?- findall([X,Y],grandson(X,Y),M).
 M = [[d, a], [e, a], [f, a]].
 */
+
+
+descendent(X,Y) :- father(Y,X).
+descendent(X,Y) :- father(Y,Z),descendent(X,Z).
 
 /*
 ?- findall([X,Y],descendent(X,Y),M).

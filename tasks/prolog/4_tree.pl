@@ -14,9 +14,6 @@ insert(X,[Y|T],[Y|T1]):-X>Y,insert(X,T,T1).
 insert(X,[Y|T],[X,Y|T]):-X=<Y.
 insert(X,[],[X]).
 
-balanced_tree([],[]):- write('empty').
-balanced_tree(L,T) :- inl(L,empty,T).
-
 inl([N|Ns], T0, T) :-
     instant(N, T0, T1),
     inl(Ns, T1, T).
@@ -32,6 +29,10 @@ instant(I, t(X, L, R), t(V, B, N)) :-
         (V, B, N) = (L, X, U)
     ;   (V, B, N) = (L, X, R)
     ).
+    
+balanced_tree([],[]):- write('empty').
+balanced_tree(L,T) :- inl(L,empty,T).
+
 
 ?- balanced_tree([3,4,3,5,4],S).
 S = t(3, empty, t(4, empty, t(5, empty, empty))) 
